@@ -1,6 +1,17 @@
-.chat {
+/* ChatPage.css */
+
+.chat-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-}
+    min-height: 100vh;
+  }
+  
+  .got-it-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }

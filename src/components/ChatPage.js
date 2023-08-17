@@ -8,7 +8,7 @@ import './ChatPage.css'
 
 function ChatPage() {
   return (
-    <div className="chat">
+    <div className="chat-container">
       <Chatbot
         config={config}
         messageParser={MessageParser}

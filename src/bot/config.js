@@ -1,7 +1,7 @@
 import { createChatBotMessage } from 'react-chatbot-kit';
 
 const config = {
-  initialMessages: [createChatBotMessage(`Hello, Welcome to student info system!`)],
+  initialMessages: [createChatBotMessage(`Hello world`)],
 };
 
-export default config; 
+export default config;
