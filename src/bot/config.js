@@ -4,4 +4,4 @@ const config = {
   initialMessages: [createChatBotMessage(`Hello world`)],
 };
 
-export default config;
+export default config; 

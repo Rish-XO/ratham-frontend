@@ -1,10 +1,10 @@
-
-import './App.css';
+import "./App.css";
+import ChatPage from "./components/ChatPage";
 
 function App() {
   return (
     <div>
-     <h1>Hello</h1>
+     <ChatPage />
     </div>
   );
 }
