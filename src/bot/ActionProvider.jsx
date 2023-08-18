@@ -1,24 +1,22 @@
 import React, { useState } from "react";
 import { createClientMessage } from "react-chatbot-kit";
 import { useDispatch } from "react-redux";
-import { nameAdder } from "../store/chatSlice";
+import { nameAdder, ageAdder } from "../store/chatSlice";
 
 const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   const [gotItClicked, setGotItClicked] = useState(false);
   const [waitingForName, setWaitingForName] = useState(false);
+  const [waitingForAge, setWaitingForAge] = useState(false);
   const dispatch = useDispatch();
 
   const handleGotIt = () => {
     const userMessage = createClientMessage("Got it.");
-    // Add the user's response to the messages
     setState((prev) => ({
       ...prev,
       messages: [...prev.messages, userMessage],
     }));
 
-    // Now add the bot's response asking for the name
     const namePrompt = createChatBotMessage("Enter your Name");
-
     setState((prev) => ({
       ...prev,
       messages: [...prev.messages, namePrompt],
@@ -30,13 +28,28 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
 
   const handleName = (name) => {
     dispatch(nameAdder(name));
-    const agePrompt = createChatBotMessage("Select your age");
+    const agePrompt = createChatBotMessage("Select your age", {
+      widget: "ageDropdown", // Register the ageDropdown widget
+    });
     setState((prev) => ({
       ...prev,
       messages: [...prev.messages, agePrompt],
     }));
 
     setWaitingForName(false);
+    setWaitingForAge(true);
+  };
+
+  const handleAgeSelect = (age) => {
+    const userMessage = createClientMessage(age);
+    setState((prev) => ({
+      ...prev,
+      messages: [...prev.messages, userMessage],
+    }));
+    if (age) {
+      dispatch(ageAdder(age));
+      setWaitingForAge(false);
+    }
   };
 
   return (
@@ -46,8 +59,10 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
           actions: {
             handleGotIt,
             handleName,
-            gotItClicked: gotItClicked,
+            handleAgeSelect,
+            gotItClicked,
             waitingForName,
+            waitingForAge,
           },
         });
       })}

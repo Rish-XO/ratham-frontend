@@ -2,12 +2,13 @@ import React from "react";
 
 const MessageParser = ({ children, actions }) => {
   const parse = (response) => {
-    if (actions.waitingForName === true) {
-      // Handle user response for "Enter your Name"
+    if (actions.waitingForName) {
       actions.handleName(response);
+    } else if (actions.waitingForAge) {
+      actions.handleAgeSelect(response);
     } else {
       // Handle other user responses here
-      // For example, ask for age or other information
+      // For example, ask for additional information
     }
   };
 
