@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { createClientMessage } from "react-chatbot-kit";
 import { useDispatch } from "react-redux";
 import { nameAdder, ageAdder } from "../store/chatSlice";
+import { useNavigate } from "react-router-dom";
 
 const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   const [gotItClicked, setGotItClicked] = useState(false);
   const [waitingForName, setWaitingForName] = useState(false);
   const [waitingForAge, setWaitingForAge] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const handleGotIt = () => {
     const userMessage = createClientMessage("Got it.");
@@ -50,6 +52,15 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
       dispatch(ageAdder(age));
       setWaitingForAge(false);
     }
+   const botMessage = createChatBotMessage("Thank you. In 5 seconds, bot will exit")
+   setState((prev) => ({
+    ...prev,
+    messages: [...prev.messages, botMessage],
+  }));
+
+  setTimeout(() => {
+    navigate('/confirmation')
+  }, 5000);
   };
 
   return (
