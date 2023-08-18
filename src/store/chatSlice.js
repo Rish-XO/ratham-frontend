@@ -10,12 +10,12 @@ const chatSlice = createSlice({
     nameAdder(state, action) {
       const data = action.payload;
       console.log(data);
-      state.name = data.name;
+      state.name = data;
     },
     ageAdder(state, action) {
       const data = action.payload;
       console.log(data);
-      state.age = data.age;
+      state.age = data;
     },
   },
 });
